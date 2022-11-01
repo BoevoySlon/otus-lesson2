@@ -54,6 +54,8 @@ Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
 ```
 
+## Создание массива RAID6
+
 Очистил суперблоки  
 ```
 [vagrant@otuslinux ~]$ sudo mdadm --zero-superblock --force /dev/sd{b,c,d,e,f}
@@ -192,7 +194,7 @@ unused devices: <none>
        4       8       80        4      active sync   /dev/sdf
 ```
 
-##Создать GPT раздел, пять партиций и смонтировать их на диск  
+##  Создать GPT раздел, пять партиций и смонтировать их на диск  
 
 Создал раздел GPT на массиве и 5 партиций
 ```
@@ -234,4 +236,22 @@ tmpfs           100M     0  100M   0% /run/user/1000
 /dev/md0p3      142M  1.6M  130M   2% /raid/part3
 /dev/md0p4      140M  1.6M  128M   2% /raid/part4
 /dev/md0p5      139M  1.6M  127M   2% /raid/part5
+```
+
+Добавил в Vagrantfile команды для создания массива, создания партиций и монтирование партиций в каталоги.  
+
+Результат работы 
+```
+ otuslinux: Filesystem      Size  Used Avail Use% Mounted on
+ otuslinux: devtmpfs        489M     0  489M   0% /dev
+ otuslinux: tmpfs           496M     0  496M   0% /dev/shm
+ otuslinux: tmpfs           496M  6.7M  489M   2% /run
+ otuslinux: tmpfs           496M     0  496M   0% /sys/fs/cgroup
+ otuslinux: /dev/sda1        40G  4.4G   36G  11% /
+ otuslinux: tmpfs           100M     0  100M   0% /run/user/1000
+ otuslinux: /dev/md0p1      139M  1.6M  127M   2% /raid/part1
+ otuslinux: /dev/md0p2      140M  1.6M  128M   2% /raid/part2
+ otuslinux: /dev/md0p3      142M  1.6M  130M   2% /raid/part3
+ otuslinux: /dev/md0p4      140M  1.6M  128M   2% /raid/part4
+ otuslinux: /dev/md0p5      139M  1.6M  127M   2% /raid/part5
 ```
